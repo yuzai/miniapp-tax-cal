@@ -200,6 +200,12 @@ export default {
     },
     handleShowResult () {
       this.showResult = true
+      // 只有当用户第一次点击马上计算时，上报工资数据，其他数据不要
+      // 上报用户税前工资和当前选择城市数据
+      wx.reportAnalytics('input_salary', {
+        salary: this.salary,
+        city: this.realCity
+      })
       this.calCulateSalary()
     },
     calCulShebao () {
@@ -251,6 +257,7 @@ export default {
       this.detail.tax.amount = Number(tax)
       this.detail.salaryAfter.amount = (this.salary - shebaogongjijin - tax).toFixed(2)
       store.commit('updateDetail', this.detail)
+      // 展示计算结果
       this.onShowResult()
     },
     changeCity (e) {
