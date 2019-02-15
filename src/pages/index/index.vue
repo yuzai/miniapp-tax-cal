@@ -286,6 +286,8 @@ export default {
     qqmapsdk = new QQMapWX({
       key: '2J4BZ-3XZCO-X67WY-SGCZW-OEVHV-HSBZX'
     })
+    // 设置右上角转发功能
+    wx.showShareMenu()
   },
   mounted () {
     // 获取用户地理定位

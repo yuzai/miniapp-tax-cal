@@ -36,6 +36,11 @@ export default {
     }
   },
   methods: {
+  },
+  mounted () {
+    console.log(123)
+    // 设置右上角转发功能
+    wx.showShareMenu()
   }
 }
 </script>
