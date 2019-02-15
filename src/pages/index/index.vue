@@ -98,6 +98,13 @@
   </van-popup>
   <div class="index-page__footer">
   </div>
+  <div class="index-page__contact-button">
+    <contact-button 
+      type="default-light" 
+      size="20"
+      session-from="weapp">
+    </contact-button>
+  </div>
 </div>
 </template>
 
@@ -265,10 +272,12 @@ export default {
       this.calCulateSalary()
     },
     onShowResult () {
-      this.showResult = false
-      setTimeout(() => {
-        this.showResult = true
-      }, 500)
+      if (this.salary > 0) {
+        this.showResult = false
+        setTimeout(() => {
+          this.showResult = true
+        }, 500)
+      }
     }
   },
 

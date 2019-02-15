@@ -1,13 +1,12 @@
 {
   "pages": [
     "pages/index/main",
-    "pages/detail/main",
-    "pages/cityselect/main"
+    "pages/detail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "新个税计算器",
     "navigationBarTextStyle": "black"
   },
   "permission": {
