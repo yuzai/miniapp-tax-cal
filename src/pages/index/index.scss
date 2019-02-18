@@ -1,6 +1,26 @@
 html,body{
   height: 100%;
 }
+
+input {
+  outline: none;
+  border: none;
+  list-style: none;
+}
+
+button {
+  font-size: 28rpx;
+  background-color: #fff;
+  border: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+button::after {
+  border: none;
+}
+
 .index-page{
   overflow: scroll-y;
   background: linear-gradient(#3468ff, #ffffff);
@@ -47,6 +67,7 @@ html,body{
     &-location{
       font-size: 14px;
       color: #333333;
+      position: relative;
       &-select{
         display: flex;
         flex-direction: row;
@@ -59,6 +80,13 @@ html,body{
           vertical-align: text-top;
           line-height: 18px;
         }
+      }
+      &__button{
+        display: inline-block;
+        line-height: 20px;
+        position: absolute;
+        left: 100px;
+        top: -3px;
       }
     }
     &-list{
@@ -137,7 +165,14 @@ html,body{
   }
   &__contact-button{
     position: absolute;
-    top: 90px;
+    top: 70px;
     right: 16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #3468ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

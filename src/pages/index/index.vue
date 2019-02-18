@@ -17,9 +17,11 @@
         <van-icon name="location-o" size="16px" color="#3C73FF"/>
         <span class="index-page__content-location-select__city">{{ realCity }}</span>
       </div>
-      <div v-if="locationFail" style="color: #999">获取地理位置失败，将按照
-        <span style="color:#333;font-weight:bold">杭州</span> 
-        标准进行计算
+      <div v-if="locationFail" style="color: #999">
+        <span>获取地理位置失败，请开启位置授权</span>
+        <button open-type="openSetting" 
+          @opensetting="openedSetting"
+          class="index-page__content-location__button">打开授权页</button>
       </div>
       <div v-else-if="noInfo" style="color: #999; font-size: 12px;">
         没有找到当前城市 
@@ -27,6 +29,9 @@
         的社保信息，将按照
         <span style="color:#333;font-weight:bold">杭州</span> 
         标准进行计算
+      </div>
+      <div v-else-if="gettinglocation">
+          获取地理位置中...
       </div>
     </div>
     <div class="index-page__content-list">
@@ -150,7 +155,8 @@ export default {
       showGjjSelector: false,
       showResult: false,
       detail: store.state.detail,
-      areaList
+      areaList,
+      gettinglocation: false
     }
   },
 
@@ -159,6 +165,7 @@ export default {
 
   methods: {
     getLocation () {
+      this.gettinglocation = true
       // 获取用户当前地址
       wx.getLocation({
         type: 'wgs84',
@@ -169,6 +176,7 @@ export default {
               longitude: res.longitude
             },
             success: (res) => {
+              this.locationFail = false
               this.city = res.result.address_component.city
               // this.city = '哈尔滨市'
               if (!gjj[this.city]) {
@@ -181,30 +189,28 @@ export default {
               } else {
                 this.realCity = this.city
               }
+              this.gettinglocation = false
             },
             fail: (res) => {
+              this.gettinglocation = false
               this.locationFail = true
             }
           })
         },
         fail: (res) => {
+          this.gettinglocation = false
           this.locationFail = true
-          wx.showModal({
-            title: '没有找到对应城市的社保信息',
-            content: `将默认使用${this.realCity}社保数据进行计算`
-          })
-          this.noInfo = true
           this.realCity = '杭州市'
         }
       })
     },
     handleShowResult () {
       this.showResult = true
-      // 只有当用户第一次点击马上计算时，上报工资数据，其他数据不要
+      // 只有当用户点击马上计算时，上报工资数据，其他数据不要
       // 上报用户税前工资和当前选择城市数据
       wx.reportAnalytics('input_salary', {
         salary: this.salary,
-        city: this.realCity
+        realcity: this.realCity
       })
       this.calCulateSalary()
     },
@@ -285,6 +291,11 @@ export default {
           this.showResult = true
         }, 500)
       }
+    },
+    openedSetting () {
+      console.log(123)
+      // 获取用户地理定位
+      this.getLocation()
     }
   },
 

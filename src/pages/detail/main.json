@@ -4,7 +4,7 @@
     "van-cell-group": "/static/vant-weapp/dist/cell-group/index"
   },
   "backgroundTextStyle": "light",
-  "navigationBarBackgroundColor": "#fff",
+  "navigationBarBackgroundColor": "#3468ff",
   "navigationBarTitleText": "收入明细",
-  "navigationBarTextStyle": "black"
+  "navigationBarTextStyle": "white"
 }
