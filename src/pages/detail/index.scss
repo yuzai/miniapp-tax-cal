@@ -26,13 +26,30 @@ html,body{
   }
   &__cells{
     margin-top: 12px;
-    &-title{
-      color: #999;
-      font-size: 14px;
+    & .van-icon-info-o{
+      color: #3468ff;
     }
-    &-value{
-      font-size: 14px;
-      color: #333 !important;
+  }
+  & .van-cell__value{
+    color: #333;
+  }
+  & .van-cell__title{
+    color: #999;
+  }
+  & .van-collapse-item__content{
+    padding: 0;
+    padding-left: 10px;
+  }
+  &__dialog-content{
+    padding: 12px 20px;
+    color: #333;
+    font-size: 14px;
+    &-tips{
+      margin-top: 14px;
+      font-size: 12px;
+      &-highlight{
+        color: #3468ff;
+      }
     }
   }
 }

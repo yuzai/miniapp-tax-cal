@@ -13,6 +13,14 @@ const store = new Vuex.Store({
         desc: '社保缴纳金额',
         amount: ''
       },
+      shebaoBase: {
+        desc: '社保缴纳基数',
+        amount: ''
+      },
+      shebaoDetail: {
+      },
+      gjjDetail: {
+      },
       gjjBase: {
         desc: '公积金缴纳基数',
         amount: ''
@@ -25,8 +33,12 @@ const store = new Vuex.Store({
         desc: '公积金缴纳金额',
         amount: ''
       },
+      salaryShouldTax: {
+        desc: '应税薪资',
+        amount: ''
+      },
       tax: {
-        desc: '应纳税额',
+        desc: '个人所得税',
         amount: ''
       },
       salaryAfter: {

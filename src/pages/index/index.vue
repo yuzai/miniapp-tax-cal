@@ -17,7 +17,7 @@
         <van-icon name="location-o" size="16px" color="#3C73FF"/>
         <span class="index-page__content-location-select__city">{{ realCity }}</span>
       </div>
-      <div v-if="locationFail" style="color: #999">
+      <div v-if="locationFail" style="color: #999; position: relative;">
         <span>获取地理位置失败，请开启位置授权</span>
         <button open-type="openSetting" 
           @opensetting="openedSetting"
@@ -123,6 +123,12 @@ import QQMapWX from '@/qqmap-wx-jssdk.js'
 
 let qqmapsdk
 
+const shebao2text = {
+  '养老保险金': 'yanglao',
+  '医疗保险金': 'yiliao',
+  '失业保险金': 'shiye'
+}
+
 export default {
   data () {
     return {
@@ -218,18 +224,49 @@ export default {
       const salary = Number(this.salary)
       let del = 0
       let base = 0
+      let amount = 0
+      let baseAmount = 0
+      const detail = shebao[this.realCity]
+      this.detail.realCity = this.realCity
       // 依次扣除三险一金
       for (let key in shebao[this.realCity]) {
         base = shebao[this.realCity][key]
         if (this.salary <= base.min) {
-          del += base.min * base.ratio / 100
+          baseAmount = base.min
         } else if (this.salary >= base.max) {
-          del += base.max * base.ratio / 100
+          baseAmount = base.max
         } else {
-          del += salary * base.ratio / 100
+          baseAmount = salary
+        }
+        amount = baseAmount * base.ratio / 100
+        del += amount
+        this.detail.shebaoBase.amount = baseAmount
+        this.detail.shebaoAmount[shebao2text[key]] = {
+          desc: key,
+          amount: `${amount.toFixed(2)} (${base.ratio}%)`
         }
       }
       this.detail.shebaoAmount.amount = del.toFixed(2)
+      // 获取当地城市详细社保基数信息
+      this.detail.shebaoDetail = {
+        min: detail['养老保险金'].min,
+        max: detail['养老保险金'].max,
+        ratio: {
+          yanglao: {
+            desc: '养老保险金',
+            amount: detail['养老保险金'].ratio
+          },
+          yiliao: {
+            desc: '医疗保险金',
+            amount: detail['医疗保险金'].ratio
+          },
+          shiye: {
+            desc: '失业保险金',
+            amount: detail['失业保险金'].ratio
+          }
+        }
+      }
+
       return del
     },
     calCulGjj () {
@@ -237,6 +274,11 @@ export default {
       let del = 0
       let base = 0
       base = gjj[this.realCity]
+      this.detail.gjjDetail = {
+        min: base.min,
+        max: base.max,
+        ratio: this.gjjRatio
+      }
       if (this.salary <= base.min) {
         del += base.min * this.gjjRatio / 100
         this.detail.gjjBase.amount = base.min
@@ -256,9 +298,11 @@ export default {
       shebaogongjijin += this.calCulGjj()
       let salaryAfterStartSpecial = 0
       let tax = 0
+      const salaryShouldTax = this.salary - shebaogongjijin
       // 起征点为5000，计算专项扣除，按月结税
-      salaryAfterStartSpecial = this.salary - shebaogongjijin - 5000 - Number(this.special)
+      salaryAfterStartSpecial = salaryShouldTax - 5000 - Number(this.special)
       this.detail.special.amount = Number(this.special)
+      this.detail.salaryShouldTax.amount = salaryShouldTax.toFixed(2)
       tax = util.calTaxByRatio(salaryAfterStartSpecial, 'tax5000ByMonth')
       this.detail.tax.amount = Number(tax)
       this.detail.salaryAfter.amount = (this.salary - shebaogongjijin - tax).toFixed(2)
@@ -293,7 +337,6 @@ export default {
       }
     },
     openedSetting () {
-      console.log(123)
       // 获取用户地理定位
       this.getLocation()
     }
