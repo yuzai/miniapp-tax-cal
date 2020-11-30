@@ -1,0 +1,58 @@
+@import "../../common/vendor.wxss";
+
+page,
+page {
+  height: 100%;
+}
+.detail-page__wrapper {
+  overflow: scroll-y;
+  background: linear-gradient(#3468ff, #ffffff);
+  height: 100%;
+  padding: 40rpx 50rpx;
+  box-sizing: border-box;
+}
+.detail-page {
+  background-color: #ffffff;
+  border-radius: 8rpx;
+  padding: 40rpx 0 20rpx;
+}
+.detail-page__title {
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+.detail-page__subtitle {
+  text-align: center;
+  color: #999;
+  font-size: 24rpx;
+  margin-top: 12rpx;
+}
+.detail-page__cells {
+  margin-top: 24rpx;
+}
+.detail-page__cells .van-icon-info-o {
+  color: #3468ff;
+}
+.detail-page .van-cell__value {
+  color: #333;
+}
+.detail-page .van-cell__title {
+  color: #999;
+}
+.detail-page .van-collapse-item__content {
+  padding: 0;
+  padding-left: 20rpx;
+}
+.detail-page__dialog-content {
+  padding: 24rpx 40rpx;
+  color: #333;
+  font-size: 28rpx;
+}
+.detail-page__dialog-content-tips {
+  margin-top: 28rpx;
+  font-size: 24rpx;
+}
+.detail-page__dialog-content-tips-highlight {
+  color: #3468ff;
+}

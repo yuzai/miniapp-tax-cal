@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/detail/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "新个税计算器",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "个人所得税的计算和您所在的城市有关"
+    }
+  }
+}

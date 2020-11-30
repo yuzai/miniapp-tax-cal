@@ -1,0 +1,56 @@
+<template name="9766329a">
+  <view class="_div data-v-29f29fbb index-page">
+    <view class="_div data-v-29f29fbb index-page__header">
+      <view class="_p data-v-29f29fbb index-page__header-time">2019年1月1日起</view>
+      <view class="_div data-v-29f29fbb index-page__header-content"> 六大专项扣除 <view class="_div data-v-29f29fbb index-page__header-content-tips"> 新<view class="_br data-v-29f29fbb"></view>增 </view>
+      </view>
+      <view class="_br data-v-29f29fbb"></view>
+      <view class="_p data-v-29f29fbb index-page__header-cal">算算，每月工资多了多少钱？</view>
+    </view>
+    <view class="_div data-v-29f29fbb index-page__content">
+      <view class="_div data-v-29f29fbb index-page__content-location">
+        <view class="_div data-v-29f29fbb index-page__content-location-select" bindtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}">
+          <van-icon name="location-o" size="16px" color="#3C73FF" class="_van-icon data-v-29f29fbb"></van-icon> <label class="_span data-v-29f29fbb index-page__content-location-select__city">{{ realCity }}</label>
+        </view>
+        <view wx:if="{{locationFail}}" style="color: #999; position: relative;" class="_div data-v-29f29fbb"><label class="_span data-v-29f29fbb">获取地理位置失败，请开启位置授权</label> <button open-type="openSetting" bindopensetting="handleProxy" class="_button data-v-29f29fbb index-page__content-location__button" data-eventid="{{'1'}}" data-comkey="{{$k}}">打开授权页</button></view>
+        <view wx:elif="{{noInfo}}" style="color: #999; font-size: 12px;" class="_div data-v-29f29fbb"> 没有找到当前城市 <label style="color:#333;font-weight:bold" class="_span data-v-29f29fbb">{{ city }}</label> 的社保信息，将按照 <label style="color:#333;font-weight:bold" class="_span data-v-29f29fbb">杭州</label> 标准进行计算 </view>
+        <view wx:elif="{{gettinglocation}}" class="_div data-v-29f29fbb"> 获取地理位置中... </view>
+      </view>
+      <view class="_div data-v-29f29fbb index-page__content-list">
+        <view class="_div data-v-29f29fbb index-page__content-list-title"> 税前收入(元) </view>
+        <view class="_div data-v-29f29fbb index-page__content-list-input-wrapper"><input type="number" class="_input data-v-29f29fbb index-page__content-list-input" placeholder="0.00" value="{{salary}}" bindinput="handleProxy" data-eventid="{{'2'}}" data-comkey="{{$k}}" /></view>
+      </view>
+      <view class="_div data-v-29f29fbb index-page__content-list">
+        <view class="_div data-v-29f29fbb index-page__content-list-title"> 专项扣除(元) </view>
+        <view class="_div data-v-29f29fbb index-page__content-list-input-wrapper"><input type="number" class="_input data-v-29f29fbb index-page__content-list-input" placeholder="0.00" value="{{special}}" bindinput="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}" /></view>
+      </view>
+      <view class="_div data-v-29f29fbb index-page__content-button" bindtap="handleProxy" data-eventid="{{'4'}}" data-comkey="{{$k}}"> 马上计算 </view>
+      <view class="_div data-v-29f29fbb index-page__content-gjj">
+        <van-cell title="公积金比例" value="{{gjjRatio+'%'}}" border="{{false}}" is-link bindtap="handleProxy" data-eventid="{{'5'}}" data-comkey="{{$k}}" class="_van-cell data-v-29f29fbb"></van-cell>
+      </view>
+      <van-transition show="{{showResult}}" name="fade" class="_van-transition data-v-29f29fbb">
+        <view class="_div data-v-29f29fbb index-page__content-result" wx:if="{{showResult}}">
+          <view class="_div data-v-29f29fbb index-page__content-result__title"><label class="_span data-v-29f29fbb">税后薪资</label>
+            <navigator url="../detail/main" class="_a data-v-29f29fbb"><label class="_span data-v-29f29fbb index-page__content-result__detail">查看详情</label>
+              <van-icon name="arrow" size="14px" color="#3C73FF" class="_van-icon data-v-29f29fbb"></van-icon>
+            </navigator>
+          </view>
+          <view class="_div data-v-29f29fbb index-page__content-result__desc">2019.1.1新税法</view>
+          <view class="_div data-v-29f29fbb index-page__content-result__amount">
+            {{ salaryAfter }}
+          </view>
+        </view>
+      </van-transition>
+    </view>
+    <van-popup show="{{showGjjSelector}}" bindclose="handleProxy" position="bottom" data-eventid="{{'7'}}" data-comkey="{{$k}}" class="_van-popup data-v-29f29fbb">
+      <van-area area-list="{{gjjRatioList}}" title="选择公积金缴存比例" columns-num="1" value="110000" bindcancel="handleProxy" bindconfirm="handleProxy" data-eventid="{{'6'}}" data-comkey="{{$k}}" class="_van-area data-v-29f29fbb"></van-area>
+    </van-popup>
+    <van-popup show="{{showCitySelector}}" bindclose="handleProxy" position="bottom" data-eventid="{{'9'}}" data-comkey="{{$k}}" class="_van-popup data-v-29f29fbb">
+      <van-area area-list="{{areaList}}" title="目前仅支持下列城市" columns-num="2" value="110100" bindcancel="handleProxy" bindconfirm="handleProxy" data-eventid="{{'8'}}" data-comkey="{{$k}}" class="_van-area data-v-29f29fbb"></van-area>
+    </van-popup>
+    <view class="_div data-v-29f29fbb index-page__footer"></view>
+    <view class="_div data-v-29f29fbb index-page__contact-button">
+      <contact-button type="default-light" size="20" session-from="weapp" class="_contact-button data-v-29f29fbb"></contact-button>
+    </view>
+  </view>
+</template>

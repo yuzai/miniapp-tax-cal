@@ -1,0 +1,30 @@
+<template name="2f1801a6">
+  <view class="_div data-v-6e29699e detail-page__wrapper">
+    <view class="_div data-v-6e29699e detail-page">
+      <view class="_div data-v-6e29699e detail-page__title">收入明细</view>
+      <view class="_div data-v-6e29699e detail-page__subtitle">结果仅供参考，具体以实际缴纳为准</view>
+      <view class="_div data-v-6e29699e detail-page__cells">
+        <van-collapse value="{{activeNames}}" bindchange="handleProxy" accordion="{{true}}" data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_van-collapse data-v-6e29699e">
+          <van-collapse-item title="{{detail.shebaoAmount.desc}}" value="{{detail.shebaoAmount.amount}}" border="{{true}}" class="_van-collapse-item data-v-6e29699e">
+            <van-cell title="{{detail.shebaoBase.desc}}" value="{{detail.shebaoBase.amount}}" border="{{true}}" icon="info-o" bindtap="handleProxy" clickable="{{true}}" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_van-cell data-v-6e29699e"></van-cell>
+            <van-cell title="{{detail.shebaoAmount[key].desc}}" value="{{detail.shebaoAmount[key].amount}}" wx:key="key" key="{{key}}" border="{{false}}" wx:for="{{showShebao}}" wx:for-index="index" wx:for-item="key" class="_van-cell data-v-6e29699e"></van-cell>
+          </van-collapse-item>
+          <van-collapse-item title="{{detail.gjjAmount.desc}}" value="{{detail.gjjAmount.amount}}" border="{{true}}" class="_van-collapse-item data-v-6e29699e">
+            <van-cell title="{{detail.gjjBase.desc}}" value="{{detail.gjjBase.amount}}" border="{{true}}" icon="info-o" bindtap="handleProxy" clickable="{{true}}" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_van-cell data-v-6e29699e"></van-cell>
+            <van-cell title="公积金缴纳比例" value="{{detail.gjjDetail.ratio}}" border="{{false}}" class="_van-cell data-v-6e29699e"></van-cell>
+          </van-collapse-item>
+        </van-collapse>
+        <van-cell title="{{detail[key].desc}}" value="{{detail[key].amount}}" wx:key="key" key="{{key}}" border="{{false}}" wx:for="{{showData}}" wx:for-index="index" wx:for-item="key" class="_van-cell data-v-6e29699e"></van-cell>
+      </view>
+    </view>
+    <van-dialog id="van-dialog" use-slot="{{true}}" class="_van-dialog data-v-6e29699e">
+      <view class="_div data-v-6e29699e detail-page__dialog-content">
+        <view class="_div data-v-6e29699e">每个城市都有最低缴纳标准和最高缴纳标准，缴纳基数计算规则如下：</view>
+        <view class="_div data-v-6e29699e">1. 如果薪资小于最低基数，则按照最低缴纳标准计算；</view>
+        <view class="_div data-v-6e29699e">2. 如果薪资大于最高基数，则按照最高缴纳标准计算；</view>
+        <view class="_div data-v-6e29699e">3. 否则，按照当前薪资进行计算；</view>
+        <view class="_div data-v-6e29699e detail-page__dialog-content-tips"> 当前城市 <label class="_span data-v-6e29699e detail-page__dialog-content-tips-highlight">{{ detail.realCity }}</label>， 最低缴纳基数 <label class="_span data-v-6e29699e detail-page__dialog-content-tips-highlight">{{ base.min }}</label>，最高缴纳基数 <label class="_span data-v-6e29699e detail-page__dialog-content-tips-highlight">{{ base.max }}</label>； </view>
+      </view>
+    </van-dialog>
+  </view>
+</template>
